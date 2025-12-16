@@ -1,3 +1,11 @@
+<!--
+    {
+        "name":"Access and Load Partitioned Object Storage Data",
+        "description":"Show value of partitioned external tables to improve performance",
+        "author":"Ana Coman",
+        "last_updated":"Ana Coman, Oracle Database Product Management, July 2024"
+    }
+-->
 # Access and Load Partitioned Object Storage Data
 
 ## Introduction

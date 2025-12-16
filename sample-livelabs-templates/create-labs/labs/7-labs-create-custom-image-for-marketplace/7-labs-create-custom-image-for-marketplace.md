@@ -13,63 +13,17 @@ This lab assumes you have:
 
 ## Task 1: Cleanup Instance for Image Capture   
 
-1. As user *opc*, Download the latest *oci-image-cleanup.sh* script.
+1. **Outside of your remote desktop connection!** Connect to your instance via SSH as user *opc*. 
+
+2. Copy and run the following to cleanup the instance.
 
     ```
     <copy>
     cd /tmp
-    wget https://raw.githubusercontent.com/oracle/oci-utils/master/libexec/oci-image-cleanup -O /tmp/oci-image-cleanup.sh
-    chmod +x oci-image-cleanup.sh
-    </copy>
-    ```
-
-2. Stop VNC Service to preserve the remote desktop layout before proceeding with custom image creation.
-
-    ```
-    <copy>
-    cat > /tmp/stopvnc.sh <<EOF
-    #!/bin/bash
-
-    #Drop existing chrome browser sessions
-    ll_windows_opened=\$(ps aux | grep 'disable-session-crashed-bubble'|grep -v grep |awk '{print \$2}'|wc -l)
-
-    if [[ "\${ll_windows_opened}" -gt 0 ]]; then
-      kill -2 \$(ps aux | grep 'disable-session-crashed-bubble'|grep -v grep |awk '{print \$2}')
-    fi
-
-    #Stop VNC
-    cd /etc/systemd/system
-    for i in \$(ls vncserver_*@*)
-    do
-      systemctl stop \$i
-    done
-    EOF
-    chmod +x /tmp/stopvnc.sh
-    sudo /tmp/stopvnc.sh
-    </copy>
-    ```
-
-2. Create and run script */tmp/cleanup.sh*
-
-    ```
-    <copy>
-    cat > /tmp/cleanup.sh <<EOF
-    #!/bin/bash
-    systemctl stop rsyslog
-    sh -c 'yes| /tmp/oci-image-cleanup.sh'
-    sed -i -e 's|^.*PermitRootLogin.*\$|PermitRootLogin no|g' /etc/ssh/sshd_config
-    sed -i -e 's|root:x:0:0:root:/root:/bin/bash|root:x:0:0:root:/root:/sbin/nologin|g' /etc/passwd
-    ln -sf /root/bootstrap/firstboot.sh /var/lib/cloud/scripts/per-instance/firstboot.sh
-    ln -sf /root/bootstrap/eachboot.sh /var/lib/cloud/scripts/per-boot/eachboot.sh
-    rm -f /u01/app/osa/non-marketplace-init/system-configured
-    rm -f /opt/.livelabs_firstboot_initialized
-    rm -f /home/*/.livelabs/.desktop_configured
-    rm -rf /home/*/log/*
-    rm -f /var/log/audit/audit.log
-    EOF
-    chmod +x /tmp/cleanup.sh
-    sudo /tmp/cleanup.sh
-
+    wget -q https://c4u02.objectstorage.us-ashburn-1.oci.customer-oci.com/p/tfC_fKB7HB5Wo1pvpYu1fHifVw-E7MZruSx9l5J6ebjhGZOwsFawUiJlJhzgR7Hy/n/c4u02/b/hosted_workshops/o/stacks/livelabs-image-cleanup.zip -O /tmp/livelabs-image-cleanup.zip
+    unzip -qo livelabs-image-cleanup.zip 
+    chmod +x livelabs-image-cleanup.sh
+    sudo /tmp/livelabs-image-cleanup.sh
     </copy>
     ```
 
@@ -79,68 +33,68 @@ Your instance at this point is ready for clean capture. Proceed to OCI console t
 
 1. Launch your browser to OCI console, then navigate to *"Compute > Instances"*
 
-    ![](./images/select-instance-1.png " ")
+    ![Navigate menu for instances](./images/select-instance-1.png " ")
 
 2. Select the instance on which you just performed the prior cleanup steps. Make sure to select the right compartment
 
-    ![](./images/select-instance-2.png " ")
+    ![Select compartment and instance](./images/select-instance-2.png " ")
 
 3. Click on *"More Actions"* and select *"Create Custom Image"*
 
-    ![](./images/create-image-1.png " ")
+    ![Use More Actions for Create Custome Image](./images/create-image-1.png " ")
 
 4. Enter a name for the image and click *"Create Custom Image"*
 
-    ![](./images/create-image-2.png " ")
+    ![Name image](./images/create-image-2.png " ")
 
 5. Edit image details and select all shapes except *BM.Standard.A1.160* and *VM.Standard.A1.Flex*
 
-    ![](./images/create-image-3.png " ")
+    ![Edit image details](./images/create-image-3.png " ")
 
 ## Task 3: Test Custom Image   
 
 1. Download the sample ORM stack zip archive
 
-    - [ll-orm-mkplc-freetier.zip](https://objectstorage.us-ashburn-1.oraclecloud.com/p/Ma3anAntwyF54E289zRxemySTIA2RZcOcq1jPZ_ZRiV3lhedYJSw3qCRnnU9K__M/n/natdsecurity/b/stack/o/ll-orm-mkplc-freetier.zip)
+    - [ll-orm-mkplc-freetier.zip](https://c4u02.objectstorage.us-ashburn-1.oci.customer-oci.com/p/tfC_fKB7HB5Wo1pvpYu1fHifVw-E7MZruSx9l5J6ebjhGZOwsFawUiJlJhzgR7Hy/n/c4u02/b/hosted_workshops/o/stacks/ll-orm-mkplc-freetier.zip)
 
 2. Unzip it locally on your computer to *ll-orm-mkplc-freetier*.
 3. Delete the downloaded file *ll-orm-mkplc-freetier.zip*.
 4. Copy the OCID of the new image
 
-    ![](./images/get-image-ocid.png " ")
+    ![OCID details](./images/get-image-ocid.png " ")
 
 5. Navigate to *ll-orm-mkplc-freetier* and open the file *variables.tf*
 
-6. Search and replace the string below with the OCID of the newly created custom image copied above
+6. Update the default value for each of the 5 variables shown below
 
-    ```
-    <copy>
-    replace-with-valid-image-OCID
-    </copy>
-    ```
+    - **`instance_image_id`** - Enter the new image OCID copied above *(Required)*
+    - **`novnc_delay_sec`** - Adjust the delay (in seconds by appending s to the number. e.g. 600s) to wait for all processes to start post boot before the desktop URL is presented to the user *(optional)*
+    - **`desktop_guide_url`** - Enter the desktop guide URL for your workshop. It should end with `".../workshop/desktop"`. *(Required)*
+    - **`desktop_app1_url`** - Enter your first desktop webapp URL if applicable, unset by setting to `""`, or just keep unchanged *(optional)*
+    - **`desktop_app2_url`** - Enter your second desktop webapp URL if applicable, unset by setting to `""`, or just keep unchanged *(optional)*
 
-    ![](./images/update-image-ocid.png " ")
+    ![Update default variables](./images/update-image-ocid.png " ")
 
 7. Save *variables.tf*
 8. Repackage the entire content of *ll-orm-mkplc-freetier* as  *ll-orm-mkplc-freetier.zip*
 
-    ![](./images/zip-orm-stack.png " ")
+    ![Repackage content](./images/zip-orm-stack.png " ")
 
 9. Using the new zip file above, navigate to "*Developer Services > Stacks*" and create a test instance with Oracle Resources Manager (ORM).
 
-    *Notes:* For more details on how to provision with ORM, refer to [setup-compute](https://oracle-livelabs.github.io/common/sample-livelabs-templates/sample-workshop-novnc/workshops/freetier/?lab=setup-compute-novnc-ssh) lab guide.
+    *Notes:* For more details on how to provision with ORM, refer to [setup-compute](https://oracle-livelabs.github.io/common/sample-livelabs-templates/sample-workshop-novnc/workshops/tenancy/?lab=setup-compute-novnc-ssh) lab guide.
 
 10. After successful instance creation, get the remote desktop URL and logon to validate
 
-    ![](./images/get-remote-desktop-url.png " ")
+    ![Remote desktop URL](./images/get-remote-desktop-url.png " ")
 
 11. Launch a browser session and navigate to the copied URL to validate
 
-    ![](./images/remote-desktop-landing.png " ")
+    ![Remote desktop landing page](./images/remote-desktop-landing.png " ")
 
     *Notes:* If the setup was successful you should see two sample Google-chrome browser windows preloaded.
 
-## Task 4: Share with LiveLabs Team   
+## Task 4: Share with LiveLabs Team
 1. Export the custom image to an Object Storage Standard bucket (Do not an Archive bucket)
 
     - Select *Export to an Object Storage bucket* unless you have a remote bucket URL with the right permissions to accept your export
@@ -148,28 +102,25 @@ Your instance at this point is ready for clean capture. Proceed to OCI console t
     - Set format to *Oracle Cloud Infrastructure file with QCOW2 image and OCI metadata (.oci)*
     - Click *Export image*
 
-    ![](./images/export-image.png " ")
+    ![Export custom image](./images/export-image.png " ")
 
 2. Navigate to the bucket, select the exported object, and Create a pre-authenticated URL
 
     - Set the expiration to a year ahead or at least 1 month ahead
 
-    ![](./images/create-pre-auth-url.png " ")
+    ![Create a PAR](./images/create-pre-auth-url.png " ")
 
-3. Send an email to *`livelabs-help-db_us@oracle.com`* and *`livelabs-help-license_us@oracle.com`* with the following content
+3. Navigate to the **Publishing** Tab in the [WMS](https://bit.ly/oraclewms).
 
-    - Pre-authenticated URL created and copied above
-    - **`desktop_guide_url`**: Link to github.io guide ending with "*../workshop/desktop*".
-      ```
-      e.g.
-      https://oracle-livelabs.github.io/em-omc/enterprise-manager/emcc/workshops/desktop/
-      ```
-    - **`desktop_app1_url`** (Optional): Link to any webapp that should be loaded on the desktop on noVNC boot.
-      ```
-      e.g. Enterprise Manager Console
-      https://emcc.livelabs.oraclevcn.com:7803/em
-      ```
-    - **`desktop_app2_url`** (Optional): Same as above a second webapp loaded on the second Google-Chrome browser tab
+    ![LiveLabs publishing](./images/publish-to-livelabs.png " ")
+
+    Press the button **Publish to LiveLabs**, and the information you need to complete about your workshop will appear.
+
+    ![Click for Green Button](./images/publishing-information.png " ")
+
+    Then you need to scroll down, and you'll see the button **Open Jira Ticket" where it will be redirected to Jira, and here you need to complete the ticket.
+
+    ![Click for Open Jira Ticket button](./images/jira-request-green-button.png " ")
 
 4. Next, please wait for our LiveLabs team to validate the image and publish it to marketplace. We will provide the ORM stack needed for brown button (run on customers' tenancies) provisioning and set up the green button (LiveLabs sandbox tenancy).
 
@@ -179,5 +130,6 @@ Your instance at this point is ready for clean capture. Proceed to OCI console t
 
 
 ## Acknowledgements
-* **Author** - Rene Fontcha, LiveLabs Platform Lead, NA Technology, February 2021
-* **Last Updated By/Date** - Arabella Yao, Product Manager, Database Product Management, Sep 2022
+* **Author** - Rene Fontcha, Master Principal Solution Architect, February 2021
+* **Contributors**  -
+* **Last Updated By/Date** - Hope Fisher, Database Product Management, Sept 2025

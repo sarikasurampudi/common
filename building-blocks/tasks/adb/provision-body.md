@@ -1,107 +1,127 @@
 <!--
     {
-        "name":"Provision Autonomous Database",
-        "description":"Provision an ADB. Use the `variables.json` file to update provisioning parameters, including database name, OCPUs, storage and more."
+        "name":"Provision Oracle Autonomous AI Database",
+        "description":"provision-body.md common task. Uses the Redwood UI. Use the `variables.json` file to update provisioning parameters, including database name, ECPUs, storage and more.",
+        "author":"Lauran K. Serhal",
+        "lastUpdated":"October 2025"
     }
 -->
-1. Click **Create Autonomous Database** to start the instance creation process.
+1. On the **Autonomous AI Databases** page, select your desired **region** and **compartment**. Click **Create Autonomous AI Database** to start the instance creation process. The **Create Autonomous AI Database Serverless** page is displayed.
 
-    ![Click Create Autonomous Database.](images/adb-click-create-adb.png "Create ADB")
+    <if type="livelabs">
+    ![Click Create Autonomous AI Database.](images/click-create-new-adb.png =65%x*)
+    </if>
 
-2.  This brings up the **Create Autonomous Database** screen where you will specify the configuration of the instance.
+    <if type="freetier">
+    ![Click Create Autonomous AI Database.](images/click-create-new-adb.png =65%x*)
+    </if>
 
-
-    ![Create Autonomous Database](images/adb-create-screen-freetier-default.png "Create ADB")
-
-
-3. Give basic information for the autonomous database:
+2. Specify the following:
 
 <if type="freetier">
-    - **Choose a compartment** - Select the compartment you just created.
-    - **Display Name** - Enter a memorable name for the database for display purposes. For this lab, use **[](var:db_display_name)**.
-    - **Database Name** - Use letters and numbers only, starting with a letter. Maximum length is 14 characters. (Underscores not supported.) For this lab, use **[](var:db_name)**.
+    - **Display name**: Enter a memorable name for the database for display purposes. For this lab, use **[](var:db_display_name)**.
+    - **Database Name**: Use letters and numbers only, starting with a letter. Maximum length is 14 characters. _Underscores are not supported_. For this lab, use **[](var:db_name)**.
+    - **Compartment**: Select your compartment from the drop-down list.
 
-    ![Enter the required details.](./images/adb-create-screen-names.png " ")
+        ![Enter the required details.](./images/adb-create-screen-names.png =65%x*)
+
+    >**Note:** Ensure that you use the suggested database names as instructed in this step, and not those shown in the screenshots.
 </if>
+
 <if type="livelabs">
-    - **Choose a compartment** - Use the default compartment created for you.
-    - **Display Name** - Enter a memorable name for the database for display purposes. For this lab, use **[](var:db_display_name)**.
-    - **Database Name** - Use letters and numbers only, starting with a letter. Maximum length is 14 characters. (Underscores not supported.) For this lab, use **[](var:db_name_livelabs)**, for example, **[](var:db_name_livelabs_example)**.
+    - **Display Name**: Enter a memorable name for the database for display purposes. For this lab, use **[](var:db_display_name)**.
+    - **Database Name**: Use letters and numbers only, starting with a letter. Maximum length is 14 characters. _Hyphens and Underscores are not supported_. For this lab, use **[](var:db_name_livelabs)**. For example, if your assigned compartment is `LL166140-COMPARTMENT`, append **`LL166140`** to the database name. In this example, the database name will be **ADWFINANCELL166140**.
+    - **Compartment**: Use the default compartment created for your reservation.
 
-    ![Enter the required details.](./images/adb-create-screen-names.png " ")
+    ![Enter the required details.](./images/adb-create-screen-names.png =65%x*)
+
+> **Note:** Ensure that you use the suggested database names as instructed in this step, and not those shown in the screenshots.
 </if>
 
-4. Choose a workload type. Select the workload type for your database from the choices:
+3. In the **Workload type** section, choose a workload type. Select the workload type for your database from the following choices:
 
-    - **Data Warehouse** - designed to support all standard SQL and business intelligence (BI) tools, and provides all of the performance of the market-leading Oracle Database in an environment that is tuned and optimized for data warehouse workloads
-    - **Transaction Processing** - provides all of the performance of the market-leading Oracle Database in an environment that is tuned and optimized to meet the demands of a variety of applications, including: mission-critical transaction processing, mixed transactions and analytics, IoT, and JSON document store
-    - **JSON Database** - is Oracle Autonomous Transaction Processing, but designed for developing NoSQL-style applications that use JavaScript Object Notation (JSON) documents. You can store up to 20 GB of data other than JSON document collections. There is no storage limit for JSON collections.
-    - **APEX** - is a low cost, Oracle Cloud service offering convenient access to the Oracle APEX platform for rapidly building and deploying low-code applications
+    - **Lakehouse**: Built for analytics and AI. Fast insights from a single lakehouse for all your data.
+    - **Transaction Processing**: Provides all of the performance of the market-leading Oracle Database in an environment that is tuned and optimized to meet the demands of a variety of applications, including: mission-critical transaction processing, mixed transactions and analytics, IoT, and JSON document store.
+    - **JSON**: It is Oracle Autonomous Transaction Processing, but designed for developing NoSQL-style applications that use JavaScript Object Notation (JSON) documents. You can store up to 20 GB of data other than JSON document collections. There is no storage limit for JSON collections.
+    - **APEX**: It is a low cost, Oracle Cloud service offering convenient access to the Oracle APEX platform for rapidly building and deploying low-code applications
 
-    For this workshop, pick **[](var:db_workload_type)**
+        For this workshop, accept the **Lakehouse** default selection.
 
-    ![Choose a workload type.](images/adb-create-screen-workload.png "Workload type")
+        ![Choose a workload type.](images/adb-create-screen-workload.png =75%x*)
 
-5. Choose a deployment type. Select the deployment type for your database from the choices:
+4. In the **Database configuration** section, specify the following:
 
-    - **Shared Infrastructure** - For this lab, choose **Shared Infrastructure** as the deployment type.
+    - **Always Free**: An Always Free databases are especially useful for development and trying new features. You can deploy an Always Free instance in an Always Free account or paid account. However, it must be deployed in the home region of your tenancy. The only option you specify in an Always Free database is the database version. For this lab, we recommend you leave the **Always Free** slider disabled unless you are in an Always Free account.
+    - **Developer**: Developer databases provide a great low cost option for developing apps with Autonomous AI Database. You have similar features to Always Free - but are not limited in terms of region deployments or the number of databases in your tenancy. You can upgrade your Developer Database to a full paid version later and benefit from greater control over resources, backups and more. For this lab, leave the **Developer** slider disabled.
+    - **Choose database version**: Select **26ai** for the database version from this drop-down list.
+    - **ECPU count**: Choose the number of ECPUs for your service. For this lab, specify **[](var:db_ocpu)**. If you choose an Always Free database, you do not need to specify this option.
+    - **Compute auto scaling**: Accept the default which is enabled. This enables the system to automatically use up to three times more compute and IO resources to meet workload demand.
+    - **Storage (TB)**: Select your storage capacity in terabytes. For this lab, specify **[](var:db_storage)** of storage. Or, if you choose an Always Free database, it comes with 20 GB of storage.
+    - **Storage auto scaling**: For this lab, there is no need to enable storage auto scaling, which would allow the system to expand up to three times the reserved storage. Accept the default which is disabled.
 
-    ![Choose a deployment type.](images/adb-create-screen-deployment-type.png "Deployment type")
+        > **Note:** You cannot scale up/down an Always Free Autonomous AI Database.
 
-6. Configure the database:
+        ![Choose the remaining parameters.](./images/adb-create-database-configuration.png =75%x*)
 
-    - **Always Free** - If your Cloud Account is an Always Free account, you can select this option to create an always free autonomous database. An always free database comes with 1 OCPU and 20 GB of storage. For this lab, we recommend you leave Always Free unchecked.
-    - **Choose database version** - Select **19c** as the database version.
-    - **OCPU count** - Number of OCPUs for your service. For this lab, specify **[](var:db_ocpu)**. If you choose an Always Free database, it comes with 1 OCPU.
-    - **Storage (TB)** - Select your storage capacity in terabytes. For this lab, specify **[](var:db_storage)** of storage. Or, if you choose an Always Free database, it comes with 20 GB of storage.
-    - **OCPU auto Scaling** - For this lab, keep auto scaling enabled, to enable the system to automatically use up to three times more OCPU and IO resources to meet workload demand.
-    - **Storage auto scaling** - For this lab, there is no need to enable storage auto scaling, which would allow the system to expand up to three times the reserved storage.
+        >**Note:** You can drill down on the **Advanced options** option to take advantage of database consolidation savings with **elastic pools** or to use your organization's on-premise licenses with **bring your own license**. 
 
-    > **Note:** You cannot scale up/down an Always Free autonomous database.
+5. In the **Backup** section, specify the following:
+    - **Automatic backup retention period in days:** You can either accept the default value or specify your own preferred backup retention days value. For this lab, accept the default `60` days default value.
+    - **Immutable backup retention:** Accept the disabled default selection.
 
-    ![Choose the remaining parameters.](./images/adb-create-screen-configure-db.png "Configuration")
+     ![Choose backup retention.](./images/choose-backup-retention.png =75%x*)
 
-7. Create administrator credentials:
+6. In the **Administrator credentials creation** section, specify the following:
 
-    - **Password and Confirm Password** - Specify the password for ADMIN user of the service instance. The password must meet the following requirements:
-    - The password must be between 12 and 30 characters long and must include at least one uppercase letter, one lowercase letter, and one numeric character.
-    - The password cannot contain the username.
-    - The password cannot contain the double quote (") character.
-    - The password must be different from the last 4 passwords used.
-    - The password must not be the same password that you set less than 24 hours ago.
-    - Re-enter the password to confirm it. Make a note of this password.
+    - **Username:** This read-only field displays the default administrator username, **`ADMIN`**. _**Important:** Make a note of this **username** as you will need it to perform later tasks._
+    - **Password:** Enter a password for the **`ADMIN`** user of the service instance choice such as **`Training4ADW`**. _**Important:** Make a note of this **password** as you will need it to perform later tasks._
+    - **Confirm password:** Confirm your password.
 
-    ![Enter password and confirm password.](./images/adb-create-screen-password.png "Admin password")
+        > **Note:** The password must meet the following requirements:    
+            - Must be between 12 and 30 characters long and must include at least one uppercase letter, one lowercase letter, and one numeric character.    
+            - Cannot contain the username.    
+            - Cannot contain the double quote (") character.    
+            - Must be different from the last 4 passwords used.    
+            - Must not be the same password that you set less than 24 hours ago.
 
-8. Choose network access:
-    - For this lab, accept the default, **Secure access from everywhere**.
+        ![Enter password and confirm password.](./images/adb-create-screen-password.png =75%x*)
+
+7. In the **Network access** section, select one of the following options:
+    - For this lab, accept the default selection, **Secure access from everywhere**.
     - If you want to allow traffic only from the IP addresses and VCNs you specify - where access to the database from all public IPs or VCNs is blocked, select **Secure access from allowed IPs and VCNs only** in the Choose network access area.
     - If you want to restrict access to a private endpoint within an OCI VCN, select **Private endpoint access only** in the Choose network access area.
-    - If the **Require mutual TLS (mTLS) authentication** option is selected, mTLS will be required to authenticate connections to your Autonomous Database. TLS connections allow you to connect to your Autonomous Database without a wallet, if you use a JDBC thin driver with JDK8 or above. See the [documentation for network options](https://docs.oracle.com/en/cloud/paas/autonomous-database/adbsa/support-tls-mtls-authentication.html#GUID-3F3F1FA4-DD7D-4211-A1D3-A74ED35C0AF5) for options to allow TLS, or to require only mutual TLS (mTLS) authentication.
+    - If the **Require mutual TLS (mTLS) authentication** option is selected, mTLS will be required to authenticate connections to your Autonomous AI Database. TLS connections allow you to connect to your Autonomous AI Database without a wallet, if you use a JDBC thin driver with JDK8 or above. See the [documentation for network options](https://docs.oracle.com/en/cloud/paas/autonomous-database/adbsa/support-tls-mtls-authentication.html#GUID-3F3F1FA4-DD7D-4211-A1D3-A74ED35C0AF5) for options to allow TLS, or to require only mutual TLS (mTLS) authentication.
 
-    ![Choose the network access.](./images/adb-create-screen-choose-network.png "Networking options")
+        ![Choose the network access.](./images/adb-create-network-access.png =65%x*)
 
-9. Choose a license type. <if type="freetier">For this lab, choose **License Included**.</if><if type="livelabs">For this lab, choose **Bring Your Own License (BYOL)**.</if> The two license types are:
-    - **Bring Your Own License (BYOL)** - Select this type when your organization has existing database licenses.
-    - **License Included** - Select this type when you want to subscribe to new database software licenses and the database cloud service.
+8. In the **Contacts for operational notifications and announcements** section, provide a contact email address. The **Contact email** field allows you to list contacts to receive operational notices and announcements as well as unplanned maintenance notifications.
 
-<if type="freetier">
-    ![](./images/adb-create-screen-license.png "License type")
-</if>
-<if type="livelabs">
-    ![](images/adb-create-screen-byol.png "License type")
-</if>
+    ![Provide a contact email address.](images/adb-create-contact-email.png =65%x*)
 
-10. For this lab, do not provide a contact email address. The "Contact Email" field allows you to list contacts to receive operational notices and announcements as well as unplanned maintenance notifications.
+9. Click **Create**.
 
-    ![Do not provide a contact email address.](images/adb-create-screen-contact-email.png "email")
+10.  The **Autonomous AI Database details** page is displayed. The status of your ADB instance is **`Provisioning`**.
 
-11. Click **Create Autonomous Database**.
+   ![Database Provisioning message.](./images/adb-create-provisioning-message-new.png =75%x*)
 
-12.  Your instance will begin provisioning.
+    A **Check database lifecycle state** informational box is displayed. You can navigate through this tour or choose to skip it. Click **Skip tour**. A **Skip guided tour** dialog box is displayed. Click **Skip**.
 
-    ![Database Provisioning message.](./images/adb-create-provisioning-message.png "Provisioning")
+    In a few minutes, the instance status changes to **`Available`**. At this point, your Autonomous Data Warehouse database instance is ready to use! Review your instance's details including its name, database version, ECPU count, and storage size.
+       
+    >**Note:** In the following screen sample, the database display name is **`Training-Database`** and the database name is **`TrainingDatabase`**. _In your example, your **database display name** and **database name** might be different_.
 
-    In a few minutes, the state will turn from Provisioning to Available. At this point, your Autonomous Database instance is ready to use! Have a look at your instance's details - including its name, database version, OCPU count, and storage size.
+    ![Database complete message.](./images/adb-created.png =75%x*)
 
-    ![Database complete message.](./images/adb-create-complete-message.png "Complete")
+11. Click the **Autonomous AI Databases** link in the top left of the page. The **Autonomous AI Database** page is displayed.
+
+    ![Click left arrow.](./images/click-left-arrow.png =75%x*)
+
+    Your new Autonomous AI Database instance is displayed. 
+
+    In the following sample screen capture, the instance display name is **`Training-Database`**.
+
+    ![Click left arrow.](./images/adb-home-page.png =75%x*)  
+
+12. An email message is sent to the contact email that you provided. The email contains useful links that you can use to launch Database Actions, view the Get Started with Autonomous AI Database Web page, and access the online forums to post a question and collaborate with other Autonomous AI Database experts. 
+
+    ![provisioning email sent.](./images/provisioning-email-generic.png =65%x*)

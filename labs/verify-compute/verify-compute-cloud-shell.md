@@ -1,4 +1,4 @@
-# Verify Compute Instance Setup - Cloud Shell
+# Verify compute instance setup - Cloud Shell
 
 ## Introduction
 This lab will show you how to login to your pre-created compute instance running on Oracle Cloud.
@@ -113,4 +113,4 @@ There may be several reasons why you can't login to the instance.  Here are some
 ## Acknowledgements
 * **Author** - Rene Fontcha, LiveLabs Platform Lead, NA Technology
 * **Contributors** - LiveLabs Team, Kay Malcolm
-* **Last Updated By/Date** - LiveLabs Team, May 2021
+* **Last Updated By/Date** - Abby Mulry, November 2025

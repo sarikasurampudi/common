@@ -1,20 +1,22 @@
 <!--
     {
         "name":"Go to Data Load Utility Database Action",
-        "description":"Navigate to data loader. AUTHORS: For expediency, this task uses the ADMIN user/password to open Database Actions. In your workshop, you might want to substitute a different user/password to open Database Actions."
+        "description":"Navigate to data loader. AUTHORS: For expediency, this task uses the ADMIN user/password to open Database Actions. In your workshop, you might want to substitute a different user/password to open Database Actions.",
+        "author":"Lauran K. Serhal, Consulting User Assistance Developer",
+        "lastUpdated":"Lauran K. Serhal, October 2025"
     }
 -->
 
-Navigate to the Data Load utility of Database Actions.
+1. On the **Autonomous AI Database** details page that you provisioned, click the **Database actions** drop-down list, and then select **Data Load**. 
 
-1. Go to the Details page of the Autonomous Database you provisioned. Click **Database Actions** to go to the suite of Autonomous Database tools.
+    >**Note:** The following screen capture shows the database display name as **`MyQuickStart`**. Your database display name and database name might be different.
 
-    ![Details page of your Autonomous Database](images/service-details.png " ")
+    ![Click data load from the database actions.](./images/click-data-load-drop-down.png =65%x*)
 
-2. Logging into Database Actions from the OCI service console expects you to be the ADMIN user. Log in as ADMIN if you are not automatically logged into Database Actions. Enter the administrator **Password** you specified when creating the database. Click **Sign in**.
+2. The **Data Load** Home page is displayed in a _**new browser tab**_. If you don't have a credential and an AI profile, you will get the **No Credential and AI Profile Found** message. Click the **X** control to close this card. 
 
-    ![Enter the admin password.](./images/admin-username-and-password.png " ")
+    ![The Data Load page is displayed.](./images/data-load-home-page.png =65%x*)
 
-3. On the Database Actions Launchpad page, under **Data Tools**, click **DATA LOAD**.
+    >**Note:** Logging into **Database Actions** from the OCI Service Console expects you to be the `ADMIN` user. Log in as `ADMIN` if you are not automatically logged into **Database Actions**. Enter the administrator **Password** that you specified when you created the database, and then click **Sign in**.
 
-    ![Click DATA LOAD](images/dataload.png)
+    ![Enter the admin password.](./images/admin-username-and-password.png =50%x*)

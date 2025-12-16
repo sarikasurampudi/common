@@ -8,15 +8,15 @@ We recommend you use the *Oracle Cloud Shell* to interface with the OCI compute 
 
 *IMPORTANT:  If the SSH key is not created correctly, you will not be able to connect to your environment and will get errors.  Please ensure you create your key properly.*
 
-Watch the video below for an overview of the lab.
-[Lab overview](youtube:oq2Hk1Yy9Cg)
+Watch the video below for a quick walk-through of the lab.
+[Lab overview](videohub:1_myugyuz7)
 
 Estimated Time: 5 minutes
 
 ### Objectives
 In this lab, you will:
 - Generate SSH keys using Oracle cloud shell
-- List content of the public key
+- List the content of the public key
 
 ### Prerequisites
 * An Oracle Cloud Account - please view this workshop's LiveLabs landing page to see which environments are supported.
@@ -27,32 +27,43 @@ The Cloud Shell machine is a small virtual machine running a Bash shell which yo
 
 ## Task 1: Generate SSH Keys
 
-1.  To start the Oracle Cloud shell, go to your Cloud console and click the cloud shell icon at the top right of the page.
+1. If you are using the LiveLabs Sandbox environment, you first need to switch to the compartment assigned to you. Click the **Navigation Menu** in the upper left, navigate to **Compute**, and select **Instances**.
 
-    ![Click cloud shell icon.](https://oracle-livelabs.github.io/common/images/console/cloud-shell.png " ")
+   ![Compute Instances](https://oracle-livelabs.github.io/common/images/console/compute-instances.png " ")
+
+    Select the compartment you are assigned to (check which compartment you are assigned to on the LiveLabs *Login Info* page). Expand the **root** compartment and then the **Livelabs** compartment. Select the compartment assigned to you.
+
+   ![View Login Info](https://oracle-livelabs.github.io/common/labs/need-help/images/view-login-info.png " ")
+
+   ![Select Compartment](../../images/console/compute-instance-compartment.png " ")
+
+2.  To start the Oracle Cloud shell, go to your Cloud console and click **Cloud Shell** at the top right of the page.
+
+    ![Click cloud shell.](https://oracle-livelabs.github.io/common/images/console/cloud-shell.png " ")
 
     ![Set up cloud shell.](https://oracle-livelabs.github.io/common/images/console/cloud-shell-setup.png " ")
 
-    ![Open cloud shell.](https://oracle-livelabs.github.io/common/images/console/cloud-shell-open.png.png " ")
+    ![Open cloud shell.](https://oracle-livelabs.github.io/common/images/console/cloud-shell-open.png " ")
 
-    >**Note:** If you get a "Policy Missing" error, make sure you have navigated first to the compartment assigned to you and then launched cloud shell. Go to the *Need Help* lab -> *Cannot Access Cloud Shell?* to see how you can do that.
+    >**Note:** If you get a *Policy Missing* error, make sure you have navigated first to the compartment assigned to you and then launched the cloud shell. Go to the *Need Help* lab -> *Cannot Access Cloud Shell?* to see how you can do that.
 
-2.  Once the cloud shell has started, enter the following commands. Choose the key name you can remember. This will be the keyname you will use to connect to any compute instances you create. Press Enter twice for no passphrase.
+3.  Once the cloud shell has started, enter the following commands. Choose the key name you can remember. This will be the key name you will use to connect to any compute instances you create. Press Enter twice for no passphrase.
 
-    ````
+    ````text
     <copy>mkdir .ssh</copy>
     ````
     ![mkdir](./images/mkdir.png " ")
 
-    ````
+    ````text
     <copy>cd .ssh
-    ssh-keygen -b 2048 -t rsa -f cloudshellkey</copy>
+    ssh-keygen -b 2048 -t rsa -f <<sshkeyname>></copy>
     ````
     *We recommend using the name cloudshellkey for your keyname but feel free to use the name of choice.*
+    >**Note:** The angle brackets <<>> should not appear in your code.
 
     ![Generate SSH key](./images/cloudshell-ssh.png " ")
 
-3.  Examine the two files that you just created.
+4.  Examine the two files that you just created.
 
     ````
     <copy>ls</copy>
@@ -62,16 +73,16 @@ The Cloud Shell machine is a small virtual machine running a Bash shell which yo
 
     >**Note:** In the output, there are two files, a *private key:* `cloudshellkey` and a *public key:* `cloudshellkey.pub`. Keep the private key safe and don't share its content with anyone. The public key will be needed for various activities and can be uploaded to certain systems as well as copied and pasted to facilitate secure communications in the cloud.
 
-4. To list the contents of the public key, use the cat command:
-     ```
-    <copy>cat cloudshellkey.pub</copy>
+5. To list the contents of the public key, use the cat command:
+     ```text
+    <copy>cat <<sshkeyname>>.pub</copy>
      ```
 
     >**Note:** The angle brackets <<>> should not appear in your code.
 
     ![Cat in cloud shell](./images/cat.png " ")
 
-5.  Copy the contents of the public key and save it somewhere for later. When pasting the key into the compute instance in future labs, make sure that you remove any hard returns that may have been added when copying. *The .pub key should be one line.*
+6.  Copy the contents of the public key and save it somewhere for later. When pasting the key into the compute instance in future labs, make sure that you remove any hard returns that may have been added when copying. *The .pub key should be one line.*
 
     ![Copy public key](./images/copy-cat.png " ")
 
@@ -80,4 +91,4 @@ You may now **proceed to the next lab**.
 ## Acknowledgements
 * **Author** - Dan Kingsley, Enablement Specialist, OSPA
 * **Contributors** - Jaden McElvey, Kamryn Vinson, Arabella Yao
-* **Last Updated By/Date** - Arabella Yao, Product Manager, Database Product Management, Aug 2022
+* **Last Updated By/Date** - Ramona Magadan, Technical Program Manager, Database Product Management, Aug 2025

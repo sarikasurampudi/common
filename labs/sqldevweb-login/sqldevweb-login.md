@@ -1,65 +1,76 @@
-# Connect to ADB
+# Connect to Oracle Autonomous AI Database
 
 ## Introduction
 
-This lab walks you through the steps to access the Oracle Autonomous Database instance on Oracle Cloud and connect to your Autonomous database using SQL Developer web as Admin user.
+This lab guides you through accessing the Oracle Autonomous AI Database instance on Oracle Cloud and connecting to your Autonomous AI Database using Database Actions as the *built-in* `ADMIN` Administrator account.
 
-Included with Oracle REST Data Services, *Oracle SQL Developer Web* is the web-based version of Oracle SQL Developer that enables you to execute queries and scripts, create database objects, build data models, and monitor database activity.
+Database Actions is included with Oracle REST Data Services. It is the web-based version of Oracle SQL Developer. Database Actions enables users to perform actions like:
 
-Oracle SQL Developer Web runs in Oracle REST Data Services, and access to it is provided through schema-based authentication. To use Oracle SQL Developer Web, you must sign in as a database user whose schema has been enabled for SQL Developer Web.
+- execute queries and scripts
+- create database objects
+- build data models
+- monitor database activity
 
-In Oracle Autonomous Database, the ADMIN user is pre-enabled for SQL Developer Web.
+Oracle REST Data Services powers and makes Database Actions accessible through schema-based authentication. Once a user's database schema has been REST-enabled, that user can sign into Database Actions.
+
+The ADMIN user is pre-enabled for Database Actions in the Oracle Autonomous AI Database.
 
 Estimated time: 5 minutes
 
-## Task 1: Connect to your Autonomous Database using SQL Developer Web
+### Objectives
+In this lab, you will:
+- Connect to your Autonomous AI Database using Database Actions
 
-1. Once you log in to your Oracle Cloud account, the cloud services dashboard shows all the services available to you. Click the navigation menu in the upper left to show top level navigation choices.
+### Prerequisites
+This lab assumes you have:
+- An Oracle Free Tier account, Paid Cloud account, or access to the LiveLabs Sandbox environment
+- Access to an available Autonomous AI Database
 
-    > **Note:** You can also directly access your Autonomous Data Warehouse or Autonomous Transaction Processing service in the **Launch Resources** section of the dashboard.
+## Task 1: Connect to Your Autonomous AI Database Using Database Actions
 
-    ![Oracle home page.](https://oracle-livelabs.github.io/common/images/console/navigation.png " ")
+1. After logging into your Oracle Cloud account, click the hamburger icon to open your Cloud Services navigation menu. This will reveal your top-level menu options.
 
-2. Navigate to your Autonomous Database, so click **Oracle Database**, then **Autonomous Database**.
+    ![Click the hamburger icon to expand the navigation menu.](../../images/console/home-dashboard.png " ")
 
-    ![Click Autonomous Data Warehouse.](https://oracle-livelabs.github.io/common/images/console/database-adw.png " ")
+2. From the available options, click `Oracle AI Database`.
 
-3. Make sure your Workload Type is __Data Warehouse__ or __All__ to see your Autonomous Data Warehouse instances. Use the __List Scope__ drop-down menu to select a compartment. <if type="livelabs">Check your login credentials to find the **compartment** assigned to you. Enter your compartment number, for example `LL185`, in the Search Compartments field to quickly locate your compartment.</if>
+3. The Oracle AI Database sub-menu will appear. Select `Autonomous AI Database`.
 
-    ![Check the workload type on the left.](images/task1-4.png " ")
+    ![Locate Oracle AI Database from the available options.](../../images/console/database-adb.png " ")
 
-4. From the databases displayed, click on the name of your database to navigate to your ABD details page.
+4. A screen with your available databases will appear. Ensure `root` has been selected under the `Compartment` in your `List scope`. Additionally, ensure you've selected `All` for your `Workload type` (found under your `Filters`). <if type="livelabs">Check your login credentials to find the **compartment** assigned to you. Enter your compartment number, for example, `LL185`, in the Search Compartments field to quickly locate your compartment.</if>
 
-5. From the ADB Details page, click the Database Actions button. ![Database Actions Button](./images/db-actions-button.png)
+    ![Viewing your available databases.](../../images/console/adb-database.png " ")
 
-    ![Database Actions](./images/ADB-details-sdw-1.png)
+5. From the databases displayed, click the name of your database to navigate to your Autonomous AI Database's Details page.
 
-6. The **Launch DB actions modal** window will appear. If you have pop-up blockers on, you have to open pop-up windows manually and turn on the radio button to allow access to the [cloud.oracle.com](https://cloud.oracle.com) site to view the Database Actions homepage.
+6. Your selected Autonomous AI Database's Details page will appear. Click `Database Actions` then `SQL` to launch in a new window.
 
-    ![Launch DB actions modal](./images/db-actions-modal.png)
+    ![Clicking the Database Actions Button from your details page.](../../images/console/clicking-database-actions-button-from-selected-database.png " ")
 
-7. Wait for the Database Actions Launchpad to open in another tab of the browser. You are automatically signed in as the ADMIN user.
+7. After this, you'll be automatically redirected to Database Actions SQL screen.
 
-    ![Database Actions Dashboard](./images/db-actions-main.png)
+   > Note: You are logged with the ADMIN username and password selected when you first created your Autonomous AI Database.
 
-8. If you are directed to the *Sign In* page, sign in as the ADMIN user by providing database instance’s default administrator account credentials, **Username - ADMIN** with the admin password you specified when creating the database. Click **Sign in**.
+   ![Database Actions SQL screen](./images/database-actions-sql-complete-view.png " ")
 
-    ![Sign in](./images/sdw-signin-admin.png " ")
+8. You can see the `Database Actions Launchpad` by clicking on the Oracle logo:
 
-9. From the Database Action menu, select the **SQL** tile.
+    ![Database Actions Launchpad](./images/database-actions-launchpad-complete-view.png " ")
 
-    ![SQL tile](./images/sql.png " ")
+9. From the Database Actions Launchpad, select the **SQL** tile to open a new SQL Worksheet or you can select any other option you need. 
 
-10. SQL Developer Web opens on a worksheet tab. The first time you open SQL Developer Web, a series of pop-up informational boxes introduce the main features.
+    ![SQL tile](./images/selecting-sql-worksheet-from-database-actions-launchpad.png " ")
 
-    ![Close information box](./images/click-x.png  " ")
+10. A new SQL Worksheet will appear. If this is your first time opening a SQL Worksheet, you will be presented with a quick tour of the most commonly performed actions. You may advance through the tour, or click the `X` in any box, to exit the tour.
 
-Congratulations! You are now connected to your Autonomous Database using SQL Developer Web.
+    ![Close information box](./images/tour-button-upon-sql-worksheet-first-load-screen.png " ")
+
+Congratulations! You are now connected to your Autonomous AI Database using Database Actions.
 
 You may now **proceed to the next lab**.
 
 ## Acknowledgements
 
 - **Author** - Troy Anthony, Database Product Management, May 2020
-- **Contributors** - Anoosha Pilli, Product Manager; Brian Spendolini; Arabella Yao, Product Manager
-- **Last Updated By/Date** - Arabella Yao, Product Manager, Database Product Management, Jun 2022
+- **Last Updated By/Date** - Richard Piantini Cid, Oct 2025

@@ -16,35 +16,41 @@ We offer two types of Cloud Accounts:
 
 ### Objectives
 
-- Learn how to login to your Oracle Cloud Account
+- Learn how to log in to your Oracle Cloud Account
 
 ### Prerequisites
-- Cloud Account Name - The name of your tenancy (supplied by the administrator or in your Oracle Cloud welcome email)
+- Cloud Account Name - This is the name of your tenancy (supplied by the administrator or in your Oracle Cloud welcome email)
 - Username
 - Password
 
-## Task 1:  Login to Oracle Cloud
+## Task 1:  Log in to Oracle Cloud
 If you've signed out of the Oracle Cloud, use these steps to sign back in.
 
-1. Go to [cloud.oracle.com](https://cloud.oracle.com) and enter your Cloud Account Name and click **Next**. This is the name you chose while creating your account in the previous section. It's NOT your email address. If you've forgotten the name, see the confirmation email.
+1. Go to [cloud.oracle.com](https://cloud.oracle.com) and enter your **Cloud Account Name** (tenancy name), and then click **Next**. This is the name you chose while creating your account in the previous section. _It's NOT your email address_. If you've forgotten the name, review the confirmation email.
 
-    ![Cloud Account Name](images/cloud-oracle.png " ")
+    ![Enter Cloud Account Name (tenancy name)](./images/cloud-oracle-ls.png " ")
 
-2. Expand the arrow after *"Oracle Cloud Infrastructure Direct Sign-In"* to reveal the login input fields.
+2. Click the **Sign in with an identity domain** drop-down list and select an **Identity Domain** such as **Default**, and then click **Next**.
 
-    ![Expand Oracle Cloud Infrastructure Direct Sign-In](images/cloud-login-tenant.png " ")
+    ![Click Continue S****ingle Sign-In](./images/cloud-login-default-ls.png " ")
 
-3. Enter your Cloud Account credentials and click **Sign In**. Your username is your email address. The password is what you chose when you signed up for an account.
+    ![Click Continue Single Sign-In](./images/cloud-login-oracle-identity-ls.png " ")
 
-    ![Sign in](images/oci-signin.png " ")
+3. On the **Oracle Cloud Account Sign In** page, enter your Cloud Account credentials, and then click **Sign In**. Your username is your email address. The password is what you chose when you signed up for an account.
 
-4. You are now signed in to Oracle Cloud!
+    ![Sign in](./images/oci-signin-ls.png " ")
 
-    ![OCI Console Home Page](https://oracle-livelabs.github.io/common/images/console/home-page.png " ")
+4. Based on the Multi-factor authentication setup for your account, provide authentication to sign into the account. For example, click **Allow** on the app (or enter your **authentication code** and click **Verify**) based on the authentication setup. For more details, refer the [Managing Multifactor Authentication documentation](https://docs.oracle.com/en-us/iaas/Content/Identity/Tasks/usingmfa.htm)
+
+    ![Click Allow in the app](./images/sso-multi-factor-authentication-ls.png " ")
+
+5. The **Oracle Cloud Console** home page is displayed.
+
+    ![The Oracle Console Home page is displayed.](./images/console-home-page-ls.png " ")
 
 You may now **proceed to the next lab**.
 
 ## Acknowledgements
-- **Created By/Date** - Kay Malcolm, Database Product Management, March 2020
-- **Contributors** - John Peach, Kamryn Vinson, Rene Fontcha, Madhusudhan Rao, Arabella Yao
-- **Last Updated By** - Arabella Yao, Database Product Management, Aug 2022
+- **Created By/Date:** - Lauran K. Serhal, Consulting User Assistance Developer
+- **Contributors:** - Kay Malcolm, John Peach, Rene Fontcha, Ramona Magadan
+- **Last Updated By:** - Lauran K. Serhal, October 2025
